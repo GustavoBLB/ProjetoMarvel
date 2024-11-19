@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+$cor-vermelha: #c70000;
+$cor-branca: #fff8f8;
+$cor-preta: #000000;
+$cor-cinza: #d6d6d6;
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 4rem;
+    background-image: radial-gradient(circle, $cor-vermelha 90%, #800000 100%);
+    box-shadow: 0 6px 8px $cor-cinza;  
+    .menu_list_item{
+        list-style: none;
+        .menu_list_link{
+            transition:  0.5s;
+            text-decoration: none;
+            color: $cor-branca;
+            font-family: "Roboto Condensed", sans-serif;
+            font-size: 2rem;
+            &:hover{
+                color: $cor-cinza;
+            }
+        }
+        
+    }
+}
+
