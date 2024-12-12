@@ -1,6 +1,6 @@
-
 $(document).ready(function() {
     $('.character_card').click(function() {
-        window.open('CharactersPage.html', '_blank');   
+        const character = $(this).data('character');
+        window.open(`CharactersPage.html?hero=${character}`, '_blank');   
     });
 });
