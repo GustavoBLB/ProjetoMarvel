@@ -46,7 +46,7 @@ header{
     margin-left: auto; 
     margin-right: auto; 
     justify-content: space-evenly;
-    background-color: $cor-vermelha;
+    background-image: radial-gradient(circle, $cor-vermelha 0%, #800000 100%);
     padding: 2rem;
     .character_information_image{
         width: 30rem;

@@ -38,7 +38,7 @@ header .menu_list_item .menu_list_link:hover {
   margin-left: auto;
   margin-right: auto;
   justify-content: space-evenly;
-  background-color: #c70000;
+  background-image: radial-gradient(circle, #c70000 0%, #800000 100%);
   padding: 2rem;
 }
 .character_information .character_information_image {
