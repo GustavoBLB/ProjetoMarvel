@@ -21,12 +21,13 @@ async function fetchHeroes(ts , publicKey , hash) {
   
   try {
       const response = await fetch(url);
+      const data = await response.json();
 
-      if (response.code === 200) {
-      console.log(response.data.results); 
-      displayHeroes(response.data.results); 
+      if (data.code === 200) {
+      console.log(data.data.results); 
+      displayHeroes(data.data.results); 
       } else {
-      console.error("Erro na API:", response.status);
+      console.error("Erro na API:", data.status);
       }
   } catch (error) {
       console.error("Erro na requisição:", error);
