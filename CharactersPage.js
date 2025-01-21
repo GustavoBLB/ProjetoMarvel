@@ -1,54 +1,57 @@
-// const menuListLink = document.querySelector('.menu_list_link');
-
-// $(document).ready(function() {
-// menuListLink.addEventListener('click', (event) => {
-//     event.preventDefault();
-//     window.location.href = 'home.html';
-//  });
-// });
-
 $(document).ready(function() {
-    $('.menu_list_link').click(function() {
-        event.preventDefault();
 
-        window.location.href = 'home.html';  
-    });
+    const heroId = getParameter('heroId');
+    const ts = "1"; 
+    const publicKey = "15cea5f8a59b71e7d636187219977051";
+    const hash = "62eb37bec60ace73acd483210bc3fc51";
 
+    fetchHeroesDetails( heroId , ts , publicKey , hash); 
 
-function getQueryParameter(param) {
+});
+
+/* FUNCTIONS */
+
+async function fetchHeroesDetails( heroId , ts , publicKey , hash ){
+
+    const url = `https://gateway.marvel.com/v1/public/characters/${heroId}?ts=${ts}&apikey=${publicKey}&hash=${hash}`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+  
+        if (data.code === 200) {
+            
+            const hero = data.data.results[0];
+
+            $('.character_information_image').attr('src', `${hero.thumbnail.path}.${hero.thumbnail.extension}`);
+
+            $('.character_information_text_title').text(hero.name);
+
+            fillAccordion('comics', hero.comics.items);
+            fillAccordion('events', hero.events.items);
+            fillAccordion('series', hero.series.items);
+            fillAccordion('stories', hero.stories.items);
+
+            console.log(url)
+            
+            } else {
+                console.error("API ERROR:", data.status);
+            }
+        } catch (error) {
+            console.error("REQUEST ERROR:", error);
+        }
+
+}
+
+function getParameter(param) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(param); 
 }
 
-const hero = getQueryParameter('hero');
+function homePage(){
+    window.location.href = 'home.html';  
+};
 
 
 
-switch (hero) {
-    case `wolverine`:
-        $('.character_information_image').attr('src', "https://rollingstone.com.br/media/uploads/img-1026415-wolverine1.jpg");
-        $('.character_information_text_title').text('wolverine'.toUpperCase());
-        break;
-    
-    case `spiderman`:
-        $('.character_information_image').attr('src', "https://i.pinimg.com/originals/a0/50/1b/a0501b147aa2a79092494af88a53434d.jpg");
-        $('.character_information_text_title').text('spider-man'.toUpperCase());
-        break;
 
-    case `hulk`:
-        $('.character_information_image').attr('src', "https://t.ctcdn.com.br/5QP7nxWMJzKA8aWitNrsjWZKS50=/640x360/smart/i653073.jpeg");
-        $('.character_information_text_title').text('hulk'.toUpperCase());
-        break;
-
-    case `ironman`:
-        $('.character_information_image').attr('src', "https://i.pinimg.com/736x/9d/b3/a8/9db3a8156aae930919ca3869e1ed11ff.jpg");
-        $('.character_information_text_title').text('iron-man'.toUpperCase());
-        break;
-
-    case `scarletwitch`:
-        $('.character_information_image').attr('src', "https://freshcomics.s3.amazonaws.com/issue_covers/JAN160800.jpg");
-        $('.character_information_text_title').text('scarlet witch'.toUpperCase());
-        break;
-}
-
-});

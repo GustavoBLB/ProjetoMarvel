@@ -1,9 +1,4 @@
 $(document).ready(function() {
-    
-    $('.character_card').click(function() {
-        const character = $(this).attr('id');
-        window.open(`CharactersPage.html?hero=${character}`, '_blank');   
-    });
 
     const ts = "1"; 
     const publicKey = "15cea5f8a59b71e7d636187219977051";
@@ -23,15 +18,14 @@ async function fetchHeroes(ts , publicKey , hash) {
       const response = await fetch(url);
       const data = await response.json();
 
-      if (data.code === 200) {
-      console.log(data.data.results); 
-      displayHeroes(data.data.results); 
-      } else {
-      console.error("Erro na API:", data.status);
-      }
-  } catch (error) {
-      console.error("Erro na requisição:", error);
-  }
+      if (data.code   === 200)  {
+        displayHeroes(data.data.results); 
+        } else {
+          console.error("API ERROR:", data.status);
+        } 
+    } catch (error) {
+        console.error("REQUEST ERROR:", error);
+    }
 }
 
 function displayHeroes(heroes) {
@@ -42,7 +36,7 @@ function displayHeroes(heroes) {
   heroes.forEach(hero => {
 
       const card = `
-      <div class="character_card" id="${hero.name.toLowerCase().replace(/\s+/g, '-')}" data-character="${hero.name}">
+      <div class="character_card" onclick="heroPage(${hero.id})">
         <img src="${hero.thumbnail.path}.${hero.thumbnail.extension}" alt="${hero.name}">
         <div class="character_card_content">
           <h1 class="character_card_content_title">${hero.name}</h1>
@@ -52,3 +46,7 @@ function displayHeroes(heroes) {
     container.innerHTML += card; 
   });
 }
+
+function heroPage(heroid){
+  window.open(`CharactersPage.html?heroId=${heroid}`, '_blank');   
+};
