@@ -27,12 +27,17 @@ async function fetchHeroesDetails( heroId , ts , publicKey , hash ){
 
             $('.character_information_text_title').text(hero.name);
 
-            fillAccordion('comics', hero.comics.items);
-            fillAccordion('events', hero.events.items);
-            fillAccordion('series', hero.series.items);
-            fillAccordion('stories', hero.stories.items);
+            $('.character_information_text_description').text(hero.description);
 
-            console.log(url)
+            console.log(hero.comics.items);
+
+            console.log(hero.series.items);
+
+            $('#comics').html(fillAccordion('comics' , hero.comics.items));
+            $('#events').html(fillAccordion('events', hero.events.items));
+            $('#series').html(fillAccordion('series', hero.series.items));
+            $('#stories').html(fillAccordion('stories', hero.stories.items));
+
             
             } else {
                 console.error("API ERROR:", data.status);
@@ -52,6 +57,15 @@ function homePage(){
     window.location.href = 'home.html';  
 };
 
+function fillAccordion( type , comics ) {
+
+    if (comics.length > 0) {
+        return comics.map(item => item.name).join('<br>');
+    } else {
+        return (`No ${type} available`);
+    }
+}
+  
 
 
 
